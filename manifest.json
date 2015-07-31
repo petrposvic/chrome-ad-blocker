@@ -1,0 +1,11 @@
+{
+  "name": "Ad Blocker",
+  "description": "Simple and customizable advertisement blocker.",
+  "version": "1",
+  "manifest_version": 2,
+  "content_scripts": [{
+    "matches": ["http://www.root.cz/*", "https://www.posvic.cz/*"],
+    "js": ["app.js"]
+  }]
+}
+
