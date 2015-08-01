@@ -4,8 +4,9 @@
   "version": "1",
   "manifest_version": 2,
   "content_scripts": [{
-    "matches": ["http://www.root.cz/*", "https://www.posvic.cz/*"],
-    "js": ["app.js"]
+    "matches": ["http://www.root.cz/*", "http://simpsonovi.nikee.net/*", "http://nahnoji.cz/*"],
+    "js": ["app.js"],
+    "all_frames": true
   }]
 }
 
