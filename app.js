@@ -25,11 +25,6 @@ if (document.title.toLowerCase().indexOf("nahnoji.cz") != -1) {
   }
 }
 
-// facebook.com
-if (document.title.toLowerCase().indexOf("facebook") != -1) {
-  hideById('pagelet_ego_pane');
-}
-
 // ----------------------------------------------------------------------------
 // Functions
 // ----------------------------------------------------------------------------
