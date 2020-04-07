@@ -1,11 +1,15 @@
 {
   "name": "Ad Blocker",
-  "description": "Simple and customizable advertisement blocker.",
+  "description": "Simple and customizable advertisement blocker and remover.",
   "version": "1",
   "manifest_version": 2,
   "content_scripts": [{
-    "matches": ["http://www.root.cz/*", "http://simpsonovi.nikee.net/*", "http://nahnoji.cz/*", "https://www.facebook.com/*"],
-    "js": ["app.js"],
+    "matches": ["http://www.root.cz/*", "http://simpsonovi.nikee.net/*", "http://nahnoji.cz/*"],
+    "js": ["general.js"],
+    "all_frames": true
+  }, {
+    "matches": ["https://www.facebook.com/*"],
+    "js": ["facebook-remover.js"],
     "all_frames": true
   }]
 }
