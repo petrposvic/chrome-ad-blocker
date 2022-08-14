@@ -55,8 +55,90 @@ function findSequence(node, chars) {
   return index > -1;
 }
 
-function facebookRemover(event) {
-  console.log('searching for advertisment');
+function removeByPun() {
+  console.log('searching pun of "Sponzorováno"');
+  var buf = '';
+  var lastParentId = -1;
+  var lastElement = null;
+  const divs = document.getElementsByTagName('div');
+  for (var i = 0; i < divs.length; i++) {
+    const d = divs[i];
+
+    // Ignore already removed
+    if (d.parentNode.getAttribute('data-already-removed') === '1') {
+      continue;
+    }
+
+    // Remove without pun
+    if (d.innerHTML.startsWith('Sponzorováno')) {
+      console.log('remove "Sponzorováno"');
+      d.parentNode.setAttribute('data-already-removed', '1');
+      removeParent(d, 21);
+      continue;
+    }
+
+    const inner = d.innerHTML;
+    if (
+      inner !== 'S' &&
+      inner !== 'p' &&
+      inner !== 'o' &&
+      inner !== 'n' &&
+      inner !== 'z' &&
+      inner !== 'r' &&
+      inner !== 'v' &&
+      inner !== 'á'
+    ) continue;
+
+    if (
+      d.style['position'] === 'absolute'
+    ) continue;
+
+    var parentId = d.parentNode.getAttribute('data-parent-id');
+    if (parentId === null) {
+      d.parentNode.setAttribute('data-parent-id', i);
+      parentId = i;
+    }
+
+    if (lastParentId != parentId) {
+      console.log('processing new parent ' + parentId + ': ' + buf);
+
+      var target = 'Sponzorováno';
+      if (buf.length == target.length) {
+        for (var j = 0; j < buf.length; j++) {
+          const ch = buf[j];
+          const index = target.indexOf(ch);
+          if (index > -1) {
+            target = target.slice(0, index) + target.slice(index + 1, target.length)
+          }
+          // console.log('searching for ' + ch + ' and found on index ' + index + ': ' + target);
+        }
+
+        if (target === '') {
+          console.log('remove ' + buf);
+          /*var p = lastElement;
+          for (var j = 0; j < 14; j++) {
+            p = p.parentNode;
+          }
+          // p.style.display = 'none';
+          // p.style.background = '#f00';*/
+          removeParent(lastElement, 27);
+        }
+      }
+
+      if (lastElement) {
+        lastElement.parentNode.setAttribute('data-already-removed', '1');
+      }
+      buf = '';
+    }
+
+    lastParentId = parentId;
+    lastElement = d;
+    buf += inner;
+  }
+}
+
+function removeByInnerHtml() {
+  console.log('searching inner text "Sponzorováno"');
 
   let elements = {
     'a': {
@@ -93,6 +175,12 @@ function facebookRemover(event) {
       }
     }
   }
+}
+
+function facebookRemover(event) {
+  console.log('searching for advertisment');
+  removeByInnerHtml()
+  removeByPun();
 }
 
 function buffer(func, wait) {

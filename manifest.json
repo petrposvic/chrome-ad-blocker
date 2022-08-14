@@ -2,13 +2,13 @@
   "name": "Ad Blocker",
   "description": "Simple and customizable advertisement blocker and remover.",
   "version": "1",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "content_scripts": [{
     "matches": ["http://www.root.cz/*", "http://simpsonovi.nikee.net/*", "http://nahnoji.cz/*"],
     "js": ["general.js"],
     "all_frames": true
   }, {
-    "matches": ["https://www.facebook.com/*"],
+    "matches": ["https://www.facebook.com/*", "file:///home/petr/Downloads/Facebook.html"],
     "js": ["facebook-remover.js"],
     "all_frames": true
   }]
